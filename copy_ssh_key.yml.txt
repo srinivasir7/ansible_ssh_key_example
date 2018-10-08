@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: srini
+  #Update the authorized keys in remote hosts
+  tasks:
+   - authorized_key:
+        #The user on remote server whose authorized keys we are modifying
+        user: srini
+        key: "{{ lookup('file', '/home/srini/.ssh/id_rsa.pub') }}"
+        #The key should be added in the file
+        state: present
+        #Append this to existing set of keys.
+        exclusive: no
